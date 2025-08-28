@@ -1,8 +1,20 @@
 FROM python:3
-RUN pip install django==3.2
 
 COPY . .
+=======
+# Set working directory
+WORKDIR /app
 
-RUN python manage.py migrate
+# Install dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy project files
+COPY . .
+
+# Expose port
 EXPOSE 8000
-CMD ["python","manage.py","runserver","0.0.0.0:8000"] 
+
+# Run the Django app
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
